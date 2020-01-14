@@ -21,7 +21,7 @@ sudo apt-get install python3-pip python3-bluez libbluetooth-dev git
 # grant the python executable permission to access raw socket data
 sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python3))
 #install python modules
-pip3 install beaconscanner
+pip3 install beaconscanner uptime paho.mqtt
 #
 cd ~/
 #clone repository
@@ -29,12 +29,13 @@ git clone https://github.com/theBASTI0N/ble2mqtt.git && cd ble2mqtt
 ```
 
 ## Configuration
+Edit the configuration file with your favourite editor.
 
 The configuration file is located in the main directory being named config.py.
 It contains all of the different configuration options.
 
 Multiple configurations can be entered and called upon in the main application
-on line 12. By replacing "CONFIGhome" with the name of your config.
+on line 12. By adding for example "CONFIGhome"  instead of CONFIG with the name of your config.
 
 Example:
 ```python
@@ -96,7 +97,7 @@ sudo systemctl enable ble2mqtt
 #start the service
 sudo systemctl start ble2mqtt
 #check it is running. If active all is working
-sudo systemctl enable ble2mqtt
+sudo systemctl status ble2mqtt
 ```
 
 # Visualisation
