@@ -7,9 +7,9 @@ subscribing and using the data.
 
 # Tested on
 The application has been tested on:
-RPI 3B+ : running Raspbian Buster
-RPI Zero W : running Raspbian Buster
-Dell Inspiron 7000 : running Fedora 31
+* RPI 3B+ : running Raspbian Buster
+* RPI Zero W : running Raspbian Buster
+* Dell Inspiron 7000 : running Fedora 31
 
 # Installation
 
