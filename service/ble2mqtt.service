@@ -1,0 +1,10 @@
+[Unit]
+Description=ble2mqtt Service
+After=network.target
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/ble2mqtt
+ExecStart=/usr/bin/python3 /home/pi/ble2mqtt/main.py
+Restart=always
+[Install]
+WantedBy=multi-user.target
