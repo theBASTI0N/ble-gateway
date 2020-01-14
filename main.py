@@ -50,7 +50,7 @@ def callback(bt_addr, rssi, packet, dec):
                     for i in mF:
                         if str.upper(i) == bt_addr:
                             msg = dec
-                            msg['MAC'] = bt_addr
+                            msg['Mac'] = bt_addr
                             msg['edgeMAC'] = DEVmac
                             msg['data'] = packet
                             msg['rssi'] = rssi
@@ -62,7 +62,7 @@ def callback(bt_addr, rssi, packet, dec):
                             clientBLE.publish( TOPIC + bt_addr, msgJson, qos=0, retain=False )
                 else:
                     msg = dec
-                    msg['MAC'] = bt_addr
+                    msg['Mac'] = bt_addr
                     msg['edgeMAC'] = DEVmac
                     msg['data'] = packet
                     msg['rssi'] = rssi
@@ -77,7 +77,7 @@ def callback(bt_addr, rssi, packet, dec):
                     for i in mF:
                         if str.upper(i) == bt_addr:
                             msg = dec
-                            msg['MAC'] = bt_addr
+                            msg['Mac'] = bt_addr
                             msg['edgeMAC'] = DEVmac
                             msg['data'] = packet
                             msg['rssi'] = rssi
@@ -89,7 +89,7 @@ def callback(bt_addr, rssi, packet, dec):
                             clientBLE.publish( TOPIC + bt_addr, msgJson, qos=0, retain=False )
             else:
                 msg = dec
-                msg['MAC'] = bt_addr
+                msg['Mac'] = bt_addr
                 msg['edgeMAC'] = DEVmac
                 msg['data'] = packet
                 msg['rssi'] = rssi
