@@ -100,22 +100,6 @@ sudo systemctl start ble2mqtt
 sudo systemctl status ble2mqtt
 ```
 
-There is also an optional heartbeat service that can be enabled. This is useful if no BLE tags are nearby and you want to know if the gateway is still connected.
-
-To enable the heartbeat the following can be used:
-```bash
-#move to service director
-cd ~/ble2mqtt/service
-#copy the service file to the correct location
-sudo cp ble2mqttheartbeat.service /etc/systemd/system/
-#enable the service to start on boot
-sudo systemctl enable ble2mqttheartbeat
-#start the service
-sudo systemctl start ble2mqttheartbeat
-#check it is running. If active all is working
-sudo systemctl status ble2mqttheartbeat
-```
-
 # Visualisation
 
 Software needed:
