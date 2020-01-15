@@ -41,7 +41,7 @@ Example:
 ```python
 
 CONFIG = {
-  "host" : "0.0.0.0",
+  "host" : "0.0.0.0", # This can also be a DNS entry
   "ssl" : False,
   "ca" : '/cert/ca.pem', #if not using set to None
   "cert": '/cert/cert.pem', #if not using set to None
@@ -82,6 +82,24 @@ CONFIG = {
 * ruuvi = Set to true to enable the forwarding of Ruuvi data
 * unknnown= Set to true to enable the forwarding of unknown data
 * interface = Set to the interface you want to set as the identifier of the device. Eg mac address of eth0
+
+The below is an example of importing a specific config in main.py:
+```python
+from config import CONFIGhome as CONFIG
+```
+
+This assumes your config file is like:
+
+```python
+CONFIG = {
+  "details" : 'go here'
+}
+
+CONFIGhome = {
+  "details" : 'of second config go here'
+}
+
+```
 
 ## Service
 
