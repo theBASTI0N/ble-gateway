@@ -102,7 +102,7 @@ sudo systemctl status ble2mqtt
 
 # Visualisation
 
-Software needed:
+To visualise the data the following has been tested and is required. Versions may differ depending on system you are using.
 * MQTT broker (mosquitto on a RPI)
 * Node-RED
 * Grafana (I am using v6.3.6)
@@ -110,10 +110,11 @@ Software needed:
 
 ## Used Software
 
-I created 3 databases in influxDB. Those are:
-* unknownBeacons
+I created 4 databases in influxDB. Those are:
+* unknownBeacons - This is optional, no need to create if not collecting the data.
 * TLM
 * Ruuvi
+* linux - This is for heartbeat data and is optional
 
 ## Node-RED Flows
 

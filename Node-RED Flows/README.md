@@ -16,5 +16,10 @@ influx
 CREATE DATABASE unknownBeacons
 CREATE DATABASE TLM
 CREATE DATABASE Ruuvi
+#optional database for hearbeat
+CREATE DATABASE linux
 ```
 
+If you are missing any nodes a warning will pop up to display they are missing and the node will be blanked out. Go to Manage pallete to add these Nodes.
+
+Once the flow has been imported and all Nodes have been installed the databases will need configured for each 'influx batch node'.
