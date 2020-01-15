@@ -1,6 +1,6 @@
 ## Node-RED Flows
 
-the example is provided to provide easy parsing of the mqtt messages into Influx DB.
+The example is provided to provide easy parsing of the mqtt messages into Influx DB.
 
 It is assumed that the following datbases have been created:
 * unknownBeacons
