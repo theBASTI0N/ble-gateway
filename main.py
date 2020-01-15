@@ -7,6 +7,7 @@ import datetime
 import json
 import paho.mqtt.client as mqtt
 import ssl
+import psutil
 from config import CONFIG as CONFIG
 
 
@@ -132,7 +133,9 @@ def heartbeat():
             ts = ts.translate({ord(' '): 'T'})
             ts = ts + "Z"
             up = round(uptime())
-            m = {'ts' : ts,'edgeMAC' : DEVmac,'uptime': up}
+            cpu = psutil.cpu_percent()
+            vMem = psutil.virtual_memory()
+            m = {'ts' : ts,'edgeMAC' : DEVmac,'uptime': up, 'cpu': cpu, 'totalMemory': vMem[0], 'availableMemory': vMem[1], 'percentUsedMemory': vMem[2], 'usedMemory': vMem[3], 'freeMemory': vMem[4]}
             msgJson = json.dumps(m)
             clientH.publish( CONFIG.get('topic1') + "/linux/" + DEVmac + "/heartbeat", msgJson, qos=0, retain=False )
             time.sleep(30)
