@@ -43,7 +43,7 @@ if CONFIG.get('ssl'):
 def timestamp():
     return '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
 
-def callback(bt_addr, rssi, packet, dec):
+def callback(bt_addr, rssi, packet, dec, smoothedRSSI):
     if (RUUVI and dec['f'] == 3) or (RUUVI and dec['f'] == 5) or (TLM and dec['f'] == 1) or (UNKNOWN and dec['f'] == 0): 
         if RSSIen:
             if rssi >= RSSI :
@@ -55,6 +55,7 @@ def callback(bt_addr, rssi, packet, dec):
                             msg['edgeMAC'] = DEVmac
                             msg['data'] = packet
                             msg['rssi'] = rssi
+                            msg['rssiSmooth'] = smoothedRSSI
                             ts = str(timestamp())
                             ts = ts.translate({ord(' '): 'T'})
                             ts = ts + "Z"
@@ -67,6 +68,7 @@ def callback(bt_addr, rssi, packet, dec):
                     msg['edgeMAC'] = DEVmac
                     msg['data'] = packet
                     msg['rssi'] = rssi
+                    msg['rssiSmooth'] = smoothedRSSI
                     ts = str(timestamp())
                     ts = ts.translate({ord(' '): 'T'})
                     ts = ts + "Z"
@@ -82,6 +84,7 @@ def callback(bt_addr, rssi, packet, dec):
                             msg['edgeMAC'] = DEVmac
                             msg['data'] = packet
                             msg['rssi'] = rssi
+                            msg['rssiSmooth'] = smoothedRSSI
                             ts = str(timestamp())
                             ts = ts.translate({ord(' '): 'T'})
                             ts = ts + "Z"
@@ -94,6 +97,7 @@ def callback(bt_addr, rssi, packet, dec):
                 msg['edgeMAC'] = DEVmac
                 msg['data'] = packet
                 msg['rssi'] = rssi
+                msg['rssiSmooth'] = smoothedRSSI
                 ts = str(timestamp())
                 ts = ts.translate({ord(' '): 'T'})
                 ts = ts + "Z"
