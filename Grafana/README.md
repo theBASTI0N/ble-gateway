@@ -20,4 +20,4 @@ This would be mainly used for tracking information resulting from the received R
 
 ## Grafana - Heartbeat Information
 
-This is currently being worked on.
+The example provided display's Uptime, CPU Usage (%), Memory Used (MB's) and Memory Used (%).
