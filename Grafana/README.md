@@ -17,3 +17,7 @@ The example is provided to give an example on showing the TLM beacon data.
 The example is provided to give an example on showing the TLM ble data.
 
 This would be mainly used for tracking information resulting from the received RSSI values.
+
+## Grafana - Heartbeat Information
+
+This is currently being worked on.

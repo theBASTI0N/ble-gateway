@@ -21,7 +21,7 @@ sudo apt-get install python3-pip python3-bluez libbluetooth-dev git
 # grant the python executable permission to access raw socket data
 sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python3))
 #install python modules
-pip3 install beaconscanner uptime paho.mqtt
+pip3 install beaconscanner uptime paho.mqtt psutil
 #
 cd ~/
 #clone repository
@@ -41,7 +41,7 @@ Example:
 ```python
 
 CONFIG = {
-  "host" : "0.0.0.0",
+  "host" : "0.0.0.0", # This can also be a DNS entry
   "ssl" : False,
   "ca" : '/cert/ca.pem', #if not using set to None
   "cert": '/cert/cert.pem', #if not using set to None
@@ -83,6 +83,24 @@ CONFIG = {
 * unknnown= Set to true to enable the forwarding of unknown data
 * interface = Set to the interface you want to set as the identifier of the device. Eg mac address of eth0
 
+The below is an example of importing a specific config in main.py:
+```python
+from config import CONFIGhome as CONFIG
+```
+
+This assumes your config file is like:
+
+```python
+CONFIG = {
+  "details" : 'go here'
+}
+
+CONFIGhome = {
+  "details" : 'of second config go here'
+}
+
+```
+
 ## Service
 
 To enable the application as a service so it will run at boot. The following can be followed:
@@ -100,25 +118,9 @@ sudo systemctl start ble2mqtt
 sudo systemctl status ble2mqtt
 ```
 
-There is also an optional heartbeat service that can be enabled. This is useful if no BLE tags are nearby and you want to know if the gateway is still connected.
-
-To enable the heartbeat the following can be used:
-```bash
-#move to service director
-cd ~/ble2mqtt/service
-#copy the service file to the correct location
-sudo cp ble2mqttheartbeat.service /etc/systemd/system/
-#enable the service to start on boot
-sudo systemctl enable ble2mqttheartbeat
-#start the service
-sudo systemctl start ble2mqttheartbeat
-#check it is running. If active all is working
-sudo systemctl status ble2mqttheartbeat
-```
-
 # Visualisation
 
-Software needed:
+To visualise the data the following has been tested and is required. Versions may differ depending on system you are using.
 * MQTT broker (mosquitto on a RPI)
 * Node-RED
 * Grafana (I am using v6.3.6)
@@ -126,10 +128,11 @@ Software needed:
 
 ## Used Software
 
-I created 3 databases in influxDB. Those are:
-* unknownBeacons
+I created 4 databases in influxDB. Those are:
+* unknownBeacons - This is optional, no need to create if not collecting the data.
 * TLM
 * Ruuvi
+* linux - This is for heartbeat data and is optional
 
 ## Node-RED Flows
 
