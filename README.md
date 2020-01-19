@@ -46,15 +46,11 @@ Select ' Yes'
 
 Then reboot
 
-You will now have /dev/ttyS0 listed in the devices. To see this run:
+You will now have /dev/ttyS0 listed in the devices. Connect your module to the follwing pins on your RPI:
+* Pin 8 - TX
+* Pin 10 - RX
 
-```bash
-
-  ls /dev/ttyS*
-
-```
-
-If you do not want to disable to serial console an external USB to serial adapter can be used.
+NOTE: If you do not want to disable to serial console an external USB to serial adapter can be used.
 
 ## Onion Omega
 
