@@ -5,11 +5,31 @@ This application is designed to turn your linux PC into a functioning BLE
 gateway. It creates a topic that is specific to each tag for ease of
 subscribing and using the data.
 
+It relies on 3 other ptyhon module to work correctly:
+* pybluez - 0.22
+* beacondecoder - 0.4
+* beaconscanner - 1.1.0
+
+Also supports external nRF52832 module.
+
 # Tested on
 The application has been tested on:
 * RPI 3B+ : running Raspbian Buster
 * RPI Zero W : running Raspbian Buster
 * Dell Inspiron 7000 : running Fedora 31
+
+# External BLE module
+
+To use an external ble module the nrf module in beaconscanner is wanting to receive the following information:
+channel, rssi, mac address, ble packet
+
+https://github.com/theBASTI0N/nrf52832_scanner
+
+The above repository can be used to flash a nRF52832 module to provide this data.
+
+This has been tested on the following ble module:
+Ruuvitag
+Raytac MDBT42Q-U512KV2
 
 # Installation
 
@@ -59,7 +79,11 @@ CONFIG = {
   "tlm" : True,
   "ruuvi" : True,
   "unknown" : False,
-  "interface": 'eth0' # RPI Ethernet = eth0   RPI Zero W = wlan0
+  "interface": 'eth0', # RPI Ethernet = eth0   RPI Zero W = wlan0
+  "bleDevice" : 0,  #0 = built in bluez device, 1 = serial device
+  "serialPort" : '/dev/ttyS0',  # '/dev/ttyS0' most liekly on RPI, '/dev/ttyS1' most liekly on Onion Omega 2+
+  "baudrate" : 115200,
+  "timeout" : 1
 }
 
 ```
@@ -82,6 +106,10 @@ CONFIG = {
 * ruuvi = Set to true to enable the forwarding of Ruuvi data
 * unknnown= Set to true to enable the forwarding of unknown data
 * interface = Set to the interface you want to set as the identifier of the device. Eg mac address of eth0
+* bleDevice = 0 built in bluez device, 1 is an externals erial device
+* serialPortt = The port of the external BLE module
+* baudrate = The baudrate of the external BLE module
+* timeout = The timeout of the external BLE module
 
 The below is an example of importing a specific config in main.py:
 ```python

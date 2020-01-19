@@ -17,5 +17,9 @@ CONFIG = {
   "tlm" : True,
   "ruuvi" : True,
   "unknown" : False,
-  "interface": 'eth0' # RPI Ethernet = eth0   RPI Zero W = wlan0
+  "interface" : 'eth0', # RPI Ethernet = eth0   RPI Zero W = wlan0
+  "bleDevice" : 0,  #0 = built in bluez device, 1 = serial device
+  "serialPort" : '/dev/ttyS0',  # '/dev/ttyS0' most liekly on RPI, '/dev/ttyS1' most liekly on Onion Omega 2+
+  "baudrate" : 115200,
+  "timeout" : 1
 }

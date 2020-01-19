@@ -1,5 +1,5 @@
 import time
-from beaconscanner import BeaconScanner
+from config import CONFIG as CONFIG
 import sys
 import time
 from uptime import uptime
@@ -8,7 +8,13 @@ import json
 import paho.mqtt.client as mqtt
 import ssl
 import psutil
-from config import CONFIG as CONFIG
+
+if CONFIG.get('bleDevice') == 1:
+    # Import Receiver for nRF module
+    from beaconscanner import BeaconReceiver
+else:
+    # Import bluez scanner
+    from beaconscanner import BeaconScanner
 
 
 def getMAC(interface='eth0'):
@@ -179,7 +185,10 @@ def heartbeatMQTT():
 def main_loop():
     bleMQTT()
     global scanner
-    scanner = BeaconScanner(callback)
+    if CONFIG.get('bleDevice') == 1:
+        scanner = BeaconReceiver(callback, CONFIG.get('serialPort'), CONFIG.get('baudrate'), CONFIG.get('timeout'))
+    else:
+        scanner = BeaconScanner(callback)
     scanner.start()
     heartbeatMQTT()
     heartbeat()
