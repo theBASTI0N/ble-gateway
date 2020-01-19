@@ -31,6 +31,37 @@ This has been tested on the following ble module:
 Ruuvitag
 Raytac MDBT42Q-U512KV2
 
+## RPI
+
+The RPI's built in serial connections cannot be used out of the box as it is used to connect to the RPI's console over serial. To enable the use of the serial pin the following needs to be done:
+
+```bash
+  sudo raspi-config 
+```
+
+Select 'Interfacing Options'
+Select 'Serial'
+Select 'No'
+Select ' Yes'
+
+Then reboot
+
+You will now have /dev/ttyS0 listed in the devices. To see this run:
+
+```bash
+
+  ls /dev/ttyS*
+
+```
+
+If you do not want to disable to serial console an external USB to serial adapter can be used.
+
+## Onion Omega
+
+On Onion Omega devices TX1 and RX1 pins can be used to connect UART devices.
+
+The serial device that corresponds to these pins is /dev/ttyS1
+
 # Installation
 
 The below example if for a system based on Debian 10 which includes devices such as Raspberry Pi's.
