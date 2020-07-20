@@ -21,9 +21,9 @@ The application has been tested on:
 # External BLE module
 
 To use an external ble module the nrf module in beaconscanner is wanting to receive the following information:
-channel, rssi, mac address, ble packet
+mac address, ble packet, rssi
 
-https://github.com/theBASTI0N/nrf52832_scanner
+https://github.com/ruuvi/ruuvi.gateway_nrf.c
 
 The above repository can be used to flash a nRF52832 module to provide this data.
 
