@@ -50,14 +50,14 @@ def timestamp():
     return '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
 
 def callback(bt_addr, rssi, packet, dec, smoothedRSSI):
-    if (RUUVI and dec['f'] == 3) or (RUUVI and dec['f'] == 5) or (TLM and dec['f'] == 1) or (UNKNOWN and dec['f'] == 0): 
+    if (RUUVI and dec['dataFormat'] == 3) or (RUUVI and dec['dataFormat'] == 5) or (TLM and dec['dataFormat'] == 1) or (UNKNOWN and dec['dataFormat'] == 0): 
         if RSSIen:
             if rssi >= RSSI :
                 if mFen == True:
                     for i in mF:
                         if str.upper(i) == bt_addr:
                             msg = dec
-                            msg['Mac'] = bt_addr
+                            msg['mac'] = bt_addr
                             msg['edgeMAC'] = DEVmac
                             msg['data'] = packet
                             msg['rssi'] = rssi
@@ -70,7 +70,7 @@ def callback(bt_addr, rssi, packet, dec, smoothedRSSI):
                             clientBLE.publish( TOPIC + bt_addr, msgJson, qos=0, retain=False )
                 else:
                     msg = dec
-                    msg['Mac'] = bt_addr
+                    msg['mac'] = bt_addr
                     msg['edgeMAC'] = DEVmac
                     msg['data'] = packet
                     msg['rssi'] = rssi
@@ -86,7 +86,7 @@ def callback(bt_addr, rssi, packet, dec, smoothedRSSI):
                     for i in mF:
                         if str.upper(i) == bt_addr:
                             msg = dec
-                            msg['Mac'] = bt_addr
+                            msg['mac'] = bt_addr
                             msg['edgeMAC'] = DEVmac
                             msg['data'] = packet
                             msg['rssi'] = rssi
@@ -99,9 +99,7 @@ def callback(bt_addr, rssi, packet, dec, smoothedRSSI):
                             clientBLE.publish( TOPIC + bt_addr, msgJson, qos=0, retain=False )
             else:
                 msg = dec
-                if channel != 0:
-                    msg['channel'] = channel
-                msg['Mac'] = bt_addr
+                msg['mac'] = bt_addr
                 msg['edgeMAC'] = DEVmac
                 msg['data'] = packet
                 msg['rssi'] = rssi
