@@ -68,7 +68,7 @@ sudo apt-get install python3-pip python3-bluez libbluetooth-dev git
 # grant the python executable permission to access raw socket data
 sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python3))
 #install python modules
-pip3 install beaconscanner uptime paho.mqtt psutil
+pip3 install beaconscanner uptime paho-mqtt psutil
 #
 cd ~/
 #clone repository

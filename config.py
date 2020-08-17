@@ -10,14 +10,17 @@ CONFIG = {
   "pass" : "",
   "topic1" : "home",
   "topic2" : "beacon",
+  "gatewayType" : "PiZero",
   "rssiEn" : False,
   "rssi" : -127,
   "macFilterEn" : False,
   "macFilter" : [ "c0bb722a568e", "dc3fd0bbcec2", "c467f2f9cf5a", "f7ac6ea886b1"],
-  "tlm" : True,
-  "ruuvi" : True,
+  "eddystone" : True,
+  "ibeacon": False,
+  "ruuvi" : False,
+  "ruuviPlus" : False,  #Enable extra ruuvi data to be calcualted
   "unknown" : False,
-  "interface" : 'eth0', # RPI Ethernet = eth0   RPI Zero W = wlan0
+  "interface" : 'wlp1s0', # RPI Ethernet = eth0   RPI Zero W = wlan0
   "bleDevice" : 0,  #0 = built in bluez device, 1 = serial device
   "serialPort" : '/dev/ttyS0',  # '/dev/ttyS0' most liekly on RPI, '/dev/ttyS1' most liekly on Onion Omega 2+
   "baudrate" : 115200,

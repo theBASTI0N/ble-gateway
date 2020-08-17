@@ -5,7 +5,7 @@ Instructions can be found at:
 https://grafana.com/docs/features/datasources/influxdb/
 
 ## Grafana - Ruuvi Tags
-The example is provided to give an example on showing the Ruuvitag data.
+For displaying ruuvitag data the examples provided by the Ruuvi team can be used. They can be found at: https://github.com/ruuvi/ruuvi.grafana-dashboards.json
 
 ## Grafana - TLM Tags
 
