@@ -130,3 +130,5 @@ dmypy.json
 .pyre/
 
 testconfig.py
+
+config/testble2mqtt.json

@@ -1,0 +1,60 @@
+{
+  "bleDevice" : {
+    "bleDevice" : 0,
+    "serialPort" : "/dev/ttyS0",
+    "baudrate" : 115200,
+    "timeout" : 1
+  },
+  "filters" : {
+    "eddystone" : true,
+    "ibeacon" : false,
+    "ruuvi" : true,
+    "ruuviPlus" : true,
+    "unknown" : false,
+    "rssiThreshold" : false,
+    "rssi" : -60,
+    "macFilterEnabled" : false,
+    "macFilter" : [
+      "c0bb722a568e",
+      "dc3fd0bbcec2",
+      "c467f2f9cf5a",
+      "f7ac6ea886b1"
+    ]
+  },
+  "identifiers" : {
+    "interface" : "wlp1s0",
+    "location" : "home",
+    "zone" : "masterBedroom",
+    "gatewayType" : "PiZero"
+  },
+  "endpoints" : {
+      "mqttEnabled" : true,
+      "httpEnabled" : false,
+      "influxEnabled" : false
+  },
+  "mqtt" : {
+    "host" : "127.0.0.1",
+    "port" : 1883,
+    "user" : null,
+    "password" : null,
+    "ssl" : false,
+    "ca" : null,
+    "cert" : null,
+    "key" : null
+  },
+  "http" : {
+    "host" : "127.0.0.1",
+    "port" : 443,
+    "user" : null,
+    "password" : null,
+    "ca" : null,
+    "cert" : null,
+    "key" : null
+  },
+  "influx" : {
+    "host" : "127.0.0.1",
+    "port" : 8086,
+    "user" : null,
+    "password" : null
+  }
+}

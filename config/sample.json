@@ -1,0 +1,45 @@
+{
+  "bleDevice" : {
+    "bleDevice" : 0,
+    "serialPort" : "/dev/ttyS0",
+    "baudrate" : 115200,
+    "timeout" : 1
+  },
+  "filters" : {
+    "eddystone" : true,
+    "ibeacon" : false,
+    "ruuvi" : true,
+    "ruuviPlus" : false,
+    "unknown" : false,
+    "rssiThreshold" : true,
+    "rssi" : -60,
+    "macFilterEnabled" : true,
+    "macFilter" : [
+      "c0bb722a568e",
+      "dc3fd0bbcec2",
+      "c467f2f9cf5a",
+      "f7ac6ea886b1"
+    ]
+  },
+  "identifiers" : {
+    "interface" : "wlp1s0",
+    "location" : "home",
+    "zone" : "masterBedroom",
+    "gatewayType" : "PiZero"
+  },
+  "endpoints" : {
+      "mqttEnabled" : true,
+      "httpEnabled" : false,
+      "influxEnabled" : false
+  },
+  "mqtt" : {
+    "host" : "192.168.8.1",
+    "port" : 1883,
+    "user" : "bobs",
+    "password" : "burgers",
+    "ssl" : false,
+    "ca" : null,
+    "cert" : null,
+    "key" : null
+  }
+}

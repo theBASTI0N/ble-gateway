@@ -1,28 +1,20 @@
-CONFIG = {
-  "host" : "0.0.0.0",
-  "ssl" : False,
-  "ca" : '/cert/ca.pem', #if not using set to None
-  "cert": '/cert/cert.pem', #if not using set to None
-  "key": '/cert/cert.key', #if not using set to None
-  "port" : 1883,
-  "usr" : True,
-  "user" : "",
-  "pass" : "",
-  "topic1" : "home",
-  "topic2" : "beacon",
-  "gatewayType" : "PiZero",
-  "rssiEn" : False,
-  "rssi" : -127,
-  "macFilterEn" : False,
-  "macFilter" : [ "c0bb722a568e", "dc3fd0bbcec2", "c467f2f9cf5a", "f7ac6ea886b1"],
-  "eddystone" : True,
-  "ibeacon": False,
-  "ruuvi" : False,
-  "ruuviPlus" : False,  #Enable extra ruuvi data to be calcualted
-  "unknown" : False,
-  "interface" : 'wlp1s0', # RPI Ethernet = eth0   RPI Zero W = wlan0
-  "bleDevice" : 0,  #0 = built in bluez device, 1 = serial device
-  "serialPort" : '/dev/ttyS0',  # '/dev/ttyS0' most liekly on RPI, '/dev/ttyS1' most liekly on Onion Omega 2+
-  "baudrate" : 115200,
-  "timeout" : 1
-}
+import json
+
+try:
+  # Allows for test config file to be used during development
+  config = json.load(open('config/testble2mqtt.json',))
+except:
+  config = json.load(open('config/ble2mqtt.json',))
+
+def get_config(section):
+  if section == 'bleDevice' or section == 'filters' or \
+    section == 'identifiers' or section == 'endpoints' or \
+      section == 'identifiers' or section == 'endpoints':
+      return config[section]
+  elif section == 'mqtt' or section == 'http' or \
+    section == 'influx':
+    if section in config:
+      return config[section]
+  else:
+    print('Invalid Section given')
+    return None
