@@ -1,7 +1,7 @@
 import time
 import sys
 import json
-import ble2
+import blegateway
 import config
 
 if config.get_config('bleDevice')['bleDevice'] == 1:
@@ -31,12 +31,24 @@ def callback(bt_addr, rssi, packet, dec, smoothedRSSI):
         for i in mF:
             if str.upper(i) == bt_addr:
                 if mqttEnabled:
-                    ble2mqtt.send_bt(bt_addr, json.dumps(ble2.ble_message\
+                    ble2mqtt.send_bt(bt_addr, json.dumps(blegateway.ble_message\
                         (bt_addr, rssi, packet, dec, smoothedRSSI)))
+                if influxEnabled:
+                    ble2influx.send_bt(bt_addr, json.dumps(blegateway.ble_message\
+                        (bt_addr, rssi, packet, dec, smoothedRSSI)))
+                if httpEnabled:
+                    ble2http.send_bt(bt_addr, blegateway.ble_message\
+                        (bt_addr, rssi, packet, dec, smoothedRSSI))
     else:
         if mqttEnabled:
-            ble2mqtt.send_bt(bt_addr, json.dumps(ble2.ble_message\
-                (bt_addr, rssi, packet, dec, smoothedRSSI)))
+            ble2mqtt.send_bt(bt_addr, blegateway.ble_message\
+                (bt_addr, rssi, packet, dec, smoothedRSSI))
+        if influxEnabled:
+            ble2influx.send_bt(bt_addr, blegateway.ble_message\
+                (bt_addr, rssi, packet, dec, smoothedRSSI))
+        if httpEnabled:
+            ble2http.send_bt(bt_addr, blegateway.ble_message\
+                (bt_addr, rssi, packet, dec, smoothedRSSI))
    
 
 def main_loop():
@@ -45,8 +57,10 @@ def main_loop():
         RSSI = config.get_config('filters')['rssi']
     else:
         RSSI = -999
-    
-    ble2mqtt.MQTT()
+    if mqttEnabled:
+        ble2mqtt.MQTT()
+    if influxEnabled:
+        ble2influx.INFLUX()
     global scanner
     f = config.get_config('filters')
     if config.get_config('bleDevice')['bleDevice'] == 1:
@@ -64,11 +78,21 @@ def main_loop():
     while True:
         if config.get_config('bleDevice')['bleDevice'] == 1:
             time.sleep(30)
-            ble2mqtt.heartbeat()
+            if mqttEnabled:
+                ble2mqtt.heartbeat()
+            if influxEnabled:
+                ble2influx.heartbeat()
+            if httpEnabled:
+                ble2http.heartbeat()
         else:
             time.sleep(30)
             scanner._mon.toggle_scan(False)
-            ble2mqtt.heartbeat()
+            if mqttEnabled:
+                ble2mqtt.heartbeat()
+            if influxEnabled:
+                ble2influx.heartbeat()
+            if httpEnabled:
+                ble2http.heartbeat()
             scanner._mon.toggle_scan(True)
 
 if __name__ == "__main__":
@@ -76,6 +100,7 @@ if __name__ == "__main__":
         main_loop()
     except KeyboardInterrupt:
         scanner.stop()
-        ble2mqtt.end()
+        if mqttEnabled:
+            ble2mqtt.end()
         print("\nExiting application\n")
         sys.exit(0)

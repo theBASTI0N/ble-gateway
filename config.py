@@ -2,9 +2,9 @@ import json
 
 try:
   # Allows for test config file to be used during development
-  config = json.load(open('config/testble2mqtt.json',))
+  config = json.load(open('config/testblegateway.json',))
 except:
-  config = json.load(open('config/ble2mqtt.json',))
+  config = json.load(open('config/blegateway.json',))
 
 def get_config(section):
   if section == 'bleDevice' or section == 'filters' or \

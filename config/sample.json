@@ -1,9 +1,6 @@
 {
   "bleDevice" : {
-    "bleDevice" : 0,
-    "serialPort" : "/dev/ttyS0",
-    "baudrate" : 115200,
-    "timeout" : 1
+    "bleDevice" : 0
   },
   "filters" : {
     "eddystone" : true,

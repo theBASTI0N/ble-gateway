@@ -132,3 +132,5 @@ dmypy.json
 testconfig.py
 
 config/testble2mqtt.json
+
+config/testblegateway.json

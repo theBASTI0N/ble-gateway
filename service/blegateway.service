@@ -1,0 +1,11 @@
+[Unit]
+Description=ble gateway Service
+After=network.target
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/ble-gateway
+ExecStart=/usr/bin/python3 /home/pi/ble-gateway/main.py
+Restart=always
+[Install]
+WantedBy=multi-user.target
