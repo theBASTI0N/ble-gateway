@@ -9,7 +9,7 @@ except:
 def get_config(section):
   if section == 'bleDevice' or section == 'filters' or \
     section == 'identifiers' or section == 'endpoints' or \
-      section == 'identifiers' or section == 'endpoints':
+      section == 'names':
       return config[section]
   elif section == 'mqtt' or section == 'http' or \
     section == 'influx':

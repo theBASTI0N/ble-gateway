@@ -22,33 +22,47 @@ if httpEnabled:
 if influxEnabled:
     import ble2influx
 
+try:
+    names = config.get_config('names')
+except:
+    namesEnabled = False
+else:
+    namesEnabled = True
+
 mFen = config.get_config('filters')['macFilterEnabled']
 if mFen:
     mF = config.get_config('filters')['macFilter']
 
 def callback(bt_addr, rssi, packet, dec, smoothedRSSI):
+    if namesEnabled:
+        if bt_addr in names:
+            name = names[bt_addr]
+        else:
+            name = None
+    else:
+        name = None
     if mFen == True:
         for i in mF:
             if str.upper(i) == bt_addr:
                 if mqttEnabled:
-                    ble2mqtt.send_bt(bt_addr, json.dumps(blegateway.ble_message\
-                        (bt_addr, rssi, packet, dec, smoothedRSSI)))
+                    ble2mqtt.send_bt(bt_addr, blegateway.ble_message\
+                        (bt_addr, rssi, packet, dec, smoothedRSSI, name))
                 if influxEnabled:
-                    ble2influx.send_bt(bt_addr, json.dumps(blegateway.ble_message\
-                        (bt_addr, rssi, packet, dec, smoothedRSSI)))
+                    ble2influx.send_bt(bt_addr, blegateway.ble_message\
+                        (bt_addr, rssi, packet, dec, smoothedRSSI, name))
                 if httpEnabled:
                     ble2http.send_bt(bt_addr, blegateway.ble_message\
-                        (bt_addr, rssi, packet, dec, smoothedRSSI))
+                        (bt_addr, rssi, packet, dec, smoothedRSSI, name))
     else:
         if mqttEnabled:
             ble2mqtt.send_bt(bt_addr, blegateway.ble_message\
-                (bt_addr, rssi, packet, dec, smoothedRSSI))
+                (bt_addr, rssi, packet, dec, smoothedRSSI, name))
         if influxEnabled:
             ble2influx.send_bt(bt_addr, blegateway.ble_message\
-                (bt_addr, rssi, packet, dec, smoothedRSSI))
+                (bt_addr, rssi, packet, dec, smoothedRSSI, name))
         if httpEnabled:
             ble2http.send_bt(bt_addr, blegateway.ble_message\
-                (bt_addr, rssi, packet, dec, smoothedRSSI))
+                (bt_addr, rssi, packet, dec, smoothedRSSI, name))
    
 
 def main_loop():

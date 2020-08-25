@@ -33,7 +33,7 @@ def fill_heartbeat():
         'percentUsedMemory': vMem[2], 'usedMemory': vMem[3], 'freeMemory': vMem[4], \
         'location': config.get_config('identifiers')['location'], 'zone': config.get_config('identifiers')['zone']}
 
-def ble_message(bt_addr, rssi, packet, decoded, smoothedRSSI):
+def ble_message(bt_addr, rssi, packet, decoded, smoothedRSSI, name):
     msg = decoded
     msg['mac'] = bt_addr
     msg['edgeMAC'] = gateway_mac()
@@ -43,4 +43,6 @@ def ble_message(bt_addr, rssi, packet, decoded, smoothedRSSI):
     msg['ts'] = timestamp()
     msg['location'] = config.get_config('identifiers')['location']
     msg['zone'] = config.get_config('identifiers')['zone']
+    if name != None:
+      msg['name'] = name
     return msg

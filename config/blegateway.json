@@ -15,11 +15,15 @@
     "rssi" : -60,
     "macFilterEnabled" : false,
     "macFilter" : [
-      "c0bb722a568e",
-      "dc3fd0bbcec2",
-      "c467f2f9cf5a",
-      "f7ac6ea886b1"
+      "FFFF96C5A1EE",
+      "D8FFFFFFFD7A",
+      "FFFFFF284268"
     ]
+  },
+  "names" : {
+    "FFFF96C5A1EE" : "Outside Patio",
+    "FFFFFF284268" : "Master Bedroom",
+    "D8FFFFFFFD7A" : "Outside Garden"
   },
   "identifiers" : {
     "interface" : "wlp1s0",

@@ -50,15 +50,25 @@ def heartbeat():
     client.write_points(msg)
 
 def send_bt(bt_addr, message):
-    if message['dataFormat'] == 0:
-        mesurement = 'unknown_measurements'
-    elif message['dataFormat'] == 1:
+    if message['dataFormat'] == 10:
+        mesurement = 'uid_measurements'
+    elif message['dataFormat'] == 11:
+        mesurement = 'url_measurements'
+    elif message['dataFormat'] == 12:
         mesurement = 'tlm_measurements'
+    elif message['dataFormat'] == 13:
+        mesurement = 'ibeacon_measurements'
     elif message['dataFormat'] == 3 or message['dataFormat'] == 5:
         mesurement = 'ruuvi_measurements'
+    else:
+        mesurement = 'unknown_measurements'
     
+    tags = {"mac": bt_addr, "edgeMAC": message['edgeMAC']}
     items = {}
-    
+
+    if 'name' in message:
+        tags['name'] = message['name']
+
     for i in message:
         if 'data' in i or 'ts' in i:
             pass
@@ -68,10 +78,7 @@ def send_bt(bt_addr, message):
     msg = []
     _msg = {
             "measurement": mesurement,
-            "tags": {
-                "edgeMac": message['edgeMAC'],
-                "mac": bt_addr
-            },
+            "tags": tags,
             "fields": items
         }
     
