@@ -1,31 +1,31 @@
 [
     {
-        "id": "e184de2d.f9883",
+        "id": "a57f3dfc.89dab",
         "type": "tab",
         "label": "BLE2MQTT2INFLUX",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "211dbd92.7c49e2",
+        "id": "7e465370.ac86ac",
         "type": "function",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "TLM",
-        "func": "var tokens  = msg.topic.split(\"/\");\nmsg.topic   =tokens[3];       //get device  name from topic  level 3 /v1.6/devices/tokens[3]\nvar dest    = tokens[tokens.length-1];\ninputjson   =JSON.parse(msg.payload);\nvar _fields = {};\nfor(var item in inputjson){\n    if (item.includes('Data') || item.includes(\"ts\")){}\n    else\n    {\n    _fields[item] = inputjson[item];}\n}\n\nvar tags = {\n            mac: inputjson['mac'],\n            edgeMAC: inputjson['edgeMAC']\n        } ;\n\nmsg.payload = [ \n    {        //device name as measurement\n        measurement: \"tlm_measurements\",\n        tags,\n        fields: _fields\n    }\n    ];\n    \nreturn msg;",
+        "func": "var tokens  = msg.topic.split(\"/\");\nmsg.topic   =tokens[3];       //get device  name from topic  level 3 /v1.6/devices/tokens[3]\nvar dest    = tokens[tokens.length-1];\ninputjson   =JSON.parse(msg.payload);\nvar _fields = {};\nfor(var item in inputjson){\n    if (item.includes('Data') || item.includes(\"ts\")){}\n    else\n    {\n    _fields[item] = inputjson[item];}\n}\n\nvar tags = {mac: inputjson['mac'],\n            edgeMAC: inputjson['edgeMAC']} ;\n\nfor(var item in inputjson){\n    if (item.includes('name')){\n        tags[item] = inputjson[item];\n    }\n    else{}\n}\n\nmsg.payload = [ \n    {        //device name as measurement\n        measurement: \"tlm_measurements\",\n        tags,\n        fields: _fields\n    }\n    ];\n    \nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 890,
         "y": 160,
         "wires": [
             [
-                "955726d0.7886b8"
+                "1ff35b8c.120f34"
             ]
         ]
     },
     {
-        "id": "4b425dc7.05fe24",
+        "id": "e2254fd.a31b5b",
         "type": "switch",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "",
         "property": "payload.dataFormat",
         "propertyType": "msg",
@@ -37,7 +37,22 @@
             },
             {
                 "t": "eq",
+                "v": "10",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "11",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
                 "v": "12",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "13",
                 "vt": "str"
             },
             {
@@ -53,28 +68,37 @@
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 4,
+        "outputs": 7,
         "x": 525,
         "y": 156,
         "wires": [
             [
-                "4672a641.6e33b8"
+                "480aa838.c33728"
             ],
             [
-                "42b4cd3a.5b1b64"
+                "36043169.43a1be"
             ],
             [
-                "c37f1e0d.fe8bf"
+                "36043169.43a1be"
             ],
             [
-                "c37f1e0d.fe8bf"
+                "c2d87d46.d51e2"
+            ],
+            [
+                "36043169.43a1be"
+            ],
+            [
+                "36043169.43a1be"
+            ],
+            [
+                "36043169.43a1be"
             ]
         ]
     },
     {
-        "id": "953817ff.3a4d08",
+        "id": "6fb1e240.3c091c",
         "type": "json",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "",
         "property": "payload",
         "action": "obj",
@@ -83,14 +107,14 @@
         "y": 156,
         "wires": [
             [
-                "4b425dc7.05fe24"
+                "e2254fd.a31b5b"
             ]
         ]
     },
     {
-        "id": "42b4cd3a.5b1b64",
+        "id": "c2d87d46.d51e2",
         "type": "json",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "",
         "property": "payload",
         "action": "",
@@ -99,30 +123,30 @@
         "y": 160,
         "wires": [
             [
-                "211dbd92.7c49e2"
+                "7e465370.ac86ac"
             ]
         ]
     },
     {
-        "id": "fe884652.0b6638",
+        "id": "40e0dfdb.d14b6",
         "type": "function",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "Ruuvi",
-        "func": "var tokens  = msg.topic.split(\"/\");\nmsg.topic   =tokens[3];       //get device  name from topic  level 3 /v1.6/devices/tokens[3]\ninputjson   =JSON.parse(msg.payload);\nvar _fields = {};\nfor(var item in inputjson){\n    if (item.includes('Data') || item.includes(\"ts\")){}\n    else\n    {\n    _fields[item] = inputjson[item];}\n}\n\nvar tags = {\n            mac: inputjson['mac'],\n            edgeMAC: inputjson['edgeMAC']\n        } ;\n\nmsg.payload = [ \n    {\n        measurement: \"ruuvi_measurements\" ,\n        tags,     //device name as measurement\n        fields: _fields\n    },\n    ];\n    \nreturn msg;",
+        "func": "var tokens  = msg.topic.split(\"/\");\nmsg.topic   =tokens[3];       //get device  name from topic  level 3 /v1.6/devices/tokens[3]\ninputjson   =JSON.parse(msg.payload);\nvar _fields = {};\nfor(var item in inputjson){\n    if (item.includes('Data') || item.includes(\"ts\")){}\n    else\n    {\n    _fields[item] = inputjson[item];}\n}\n\nvar tags = {mac: inputjson['mac'],\n            edgeMAC: inputjson['edgeMAC']} ;\n\nfor(var item in inputjson){\n    if (item.includes('name')){\n        tags[item] = inputjson[item];\n    }\n    else{}\n}\n\nmsg.payload = [ \n    {\n        measurement: \"ruuvi_measurements\" ,\n        tags,     //device name as measurement\n        fields: _fields\n    },\n    ];\n    \nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 890,
         "y": 200,
         "wires": [
             [
-                "955726d0.7886b8"
+                "1ff35b8c.120f34"
             ]
         ]
     },
     {
-        "id": "c37f1e0d.fe8bf",
+        "id": "36043169.43a1be",
         "type": "json",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "",
         "property": "payload",
         "action": "",
@@ -131,41 +155,41 @@
         "y": 200,
         "wires": [
             [
-                "fe884652.0b6638"
+                "40e0dfdb.d14b6"
             ]
         ]
     },
     {
-        "id": "14d5955a.a27f1b",
+        "id": "79cba41e.e517fc",
         "type": "mqtt in",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "",
-        "topic": "home/+/beacon/#",
+        "topic": "home/+/#",
         "qos": "0",
         "datatype": "auto",
-        "broker": "4be5debe.f3d7a",
-        "x": 100,
+        "broker": "7ea27770.f00488",
+        "x": 80,
         "y": 160,
         "wires": [
             [
-                "953817ff.3a4d08"
+                "6fb1e240.3c091c"
             ]
         ]
     },
     {
-        "id": "429320e6.b803",
+        "id": "2dc486c4.e8a40a",
         "type": "comment",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "Beacons",
-        "info": "",
+        "info": "Change home to location being used",
         "x": 80,
         "y": 120,
         "wires": []
     },
     {
-        "id": "4672a641.6e33b8",
+        "id": "480aa838.c33728",
         "type": "json",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "",
         "property": "payload",
         "action": "str",
@@ -174,31 +198,31 @@
         "y": 116,
         "wires": [
             [
-                "911eb92c.6d5d18"
+                "92609fef.caa72"
             ]
         ]
     },
     {
-        "id": "911eb92c.6d5d18",
+        "id": "92609fef.caa72",
         "type": "function",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "Unknown",
-        "func": "var tokens  = msg.topic.split(\"/\");\nmsg.topic   =tokens[3];       //get device  name from topic  level 3 /v1.6/devices/tokens[3]\nvar dest    = tokens[tokens.length-1];\ninputjson   =JSON.parse(msg.payload);\nvar _fields = {};\nfor(var item in inputjson){\n    if (item.includes('Data') || item.includes(\"ts\")){}\n    else\n    {\n    _fields[item] = inputjson[item];}\n}\n\nvar tags = {\n            mac: inputjson['mac'],\n            edgeMAC: inputjson['edgeMAC']\n        } ;\n\nmsg.payload = [ \n    {        //device name as measurement\n        measurement: \"unknown_measurements\",\n        tags,\n        fields: _fields\n    }\n    ];\n    \nreturn msg;",
+        "func": "var tokens  = msg.topic.split(\"/\");\nmsg.topic   =tokens[3];       //get device  name from topic  level 3 /v1.6/devices/tokens[3]\nvar dest    = tokens[tokens.length-1];\ninputjson   =JSON.parse(msg.payload);\nvar _fields = {};\nfor(var item in inputjson){\n    if (item.includes('Data') || item.includes(\"ts\")){}\n    else\n    {\n    _fields[item] = inputjson[item];}\n}\n\nvar tags = {mac: inputjson['mac'],\n            edgeMAC: inputjson['edgeMAC']} ;\n\nfor(var item in inputjson){\n    if (item.includes('name')){\n        tags[item] = inputjson[item];\n    }\n    else{}\n}\n\nmsg.payload = [ \n    {        //device name as measurement\n        measurement: \"unknown_measurements\",\n        tags,\n        fields: _fields\n    }\n    ];\n    \nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 895,
         "y": 116,
         "wires": [
             [
-                "955726d0.7886b8"
+                "1ff35b8c.120f34"
             ]
         ]
     },
     {
-        "id": "955726d0.7886b8",
+        "id": "1ff35b8c.120f34",
         "type": "influxdb batch",
-        "z": "e184de2d.f9883",
-        "influxdb": "c598a3ff.40fa6",
+        "z": "a57f3dfc.89dab",
+        "influxdb": "c86ff7aa.877878",
         "precision": "",
         "retentionPolicy": "",
         "name": "",
@@ -207,26 +231,26 @@
         "wires": []
     },
     {
-        "id": "9eb65936.d6f5d8",
+        "id": "7f97c1e4.88eed",
         "type": "mqtt in",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "",
-        "topic": "home/linux/+/heartbeat",
+        "topic": "heartbeat/#",
         "qos": "0",
         "datatype": "auto",
-        "broker": "4be5debe.f3d7a",
-        "x": 120,
+        "broker": "7ea27770.f00488",
+        "x": 90,
         "y": 300,
         "wires": [
             [
-                "b6fa4ac1.642a68"
+                "953d51ca.f4144"
             ]
         ]
     },
     {
-        "id": "48c1ea85.0f7de4",
+        "id": "fee00e0.05672f",
         "type": "comment",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "Heartbeat",
         "info": "",
         "x": 80,
@@ -234,9 +258,9 @@
         "wires": []
     },
     {
-        "id": "b6fa4ac1.642a68",
+        "id": "953d51ca.f4144",
         "type": "function",
-        "z": "e184de2d.f9883",
+        "z": "a57f3dfc.89dab",
         "name": "Heartbeat",
         "func": "var tokens  = msg.topic.split(\"/\");\nmsg.topic   =tokens[3];       //get device  name from topic  level 3 /v1.6/devices/tokens[3]\nvar dest    = tokens[tokens.length-1];\ninputjson   =JSON.parse(msg.payload);\nvar _fields = {};\nfor(var item in inputjson){\n    if (item.includes('Data') || item.includes(\"ts\")){}\n    else\n    {\n    _fields[item] = inputjson[item];}\n}\n\nvar tags = {\n            edgeMac: inputjson['edgeMAC'],\n            edgeType: inputjson['type']\n        } ;\n\nmsg.payload = [ \n    {\n        measurement: \"heartbeat_measurements\",\n        tags,     //device name as measurement\n        fields: _fields\n    },\n    ];\n    \nreturn msg;",
         "outputs": 1,
@@ -245,12 +269,12 @@
         "y": 300,
         "wires": [
             [
-                "955726d0.7886b8"
+                "1ff35b8c.120f34"
             ]
         ]
     },
     {
-        "id": "4be5debe.f3d7a",
+        "id": "7ea27770.f00488",
         "type": "mqtt-broker",
         "z": "",
         "name": "mqtt",
@@ -272,7 +296,7 @@
         "willPayload": ""
     },
     {
-        "id": "c598a3ff.40fa6",
+        "id": "c86ff7aa.877878",
         "type": "influxdb",
         "z": "",
         "hostname": "192.168.8.1",
@@ -281,10 +305,10 @@
         "database": "ruuvi",
         "name": "ruuvi",
         "usetls": false,
-        "tls": "c01d971f.348e88"
+        "tls": "e3ca172.d4b94e8"
     },
     {
-        "id": "c01d971f.348e88",
+        "id": "e3ca172.d4b94e8",
         "type": "tls-config",
         "z": "",
         "name": "local-tls",
