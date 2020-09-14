@@ -57,6 +57,10 @@ def send_bt(bt_addr, message):
     elif message['dataFormat'] == 12:
         mesurement = 'tlm_measurements'
     elif message['dataFormat'] == 13:
+        mesurement = 'etlm_measurements'
+    elif message['dataFormat'] == 14:
+        mesurement = 'eid_measurements'
+    elif message['dataFormat'] == 20:
         mesurement = 'ibeacon_measurements'
     elif message['dataFormat'] == 3 or message['dataFormat'] == 5:
         mesurement = 'ruuvi_measurements'
